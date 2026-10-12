@@ -266,8 +266,12 @@
     // ============================
     // Format Helpers
     // ============================
+    function formatARS(amount) {
+        return '$' + Number(amount).toLocaleString('es-AR') + ' ARS';
+    }
+
     function formatCLP(amount) {
-        return '$' + Number(amount).toLocaleString('es-CL');
+        return '$' + Number(amount).toLocaleString('es-CL') + ' CLP';
     }
 
     function formatDate(dateStr) {
@@ -295,7 +299,7 @@
         animateNumber(totalProductsEl, total);
         animateNumber(availableProductsEl, available);
         animateNumber(soldProductsEl, sold);
-        totalRevenueEl.textContent = formatCLP(revenue);
+        totalRevenueEl.textContent = formatARS(revenue);
 
         // Recent products (last 5)
         const recent = [...products].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 5);
@@ -311,7 +315,7 @@
                         <div class="recent-item-name">${escapeHtml(p.name)}</div>
                         <div class="recent-item-category">${escapeHtml(p.category)}</div>
                     </div>
-                    <div class="recent-item-price">${formatCLP(p.price)}</div>
+                    <div class="recent-item-price">${formatARS(p.price)}</div>
                 </div>
             `).join('');
 
@@ -503,7 +507,7 @@
                     <div class="product-card-name">${escapeHtml(p.name)}</div>
                     <div class="product-card-category">${escapeHtml(p.category)}</div>
                     <div class="product-card-meta">
-                        <span class="product-card-price">${formatCLP(p.price)}</span>
+                        <span class="product-card-price">${formatARS(p.price)}</span>
                         <span class="product-card-sku">${p.sku ? escapeHtml(p.sku) : ''}</span>
                     </div>
                 </div>
@@ -947,8 +951,8 @@
             ${imageHtml}
             <div class="detail-grid">
                 <div class="detail-field">
-                    <div class="detail-field-label">Precio</div>
-                    <div class="detail-field-value" style="color: var(--accent-green); font-weight:700; font-size:1.1rem">${formatCLP(p.price)}</div>
+                    <div class="detail-field-label">Precio de Venta (ARS)</div>
+                    <div class="detail-field-value" style="color: var(--accent-green); font-weight:700; font-size:1.1rem">${formatARS(p.price)}</div>
                 </div>
                 <div class="detail-field">
                     <div class="detail-field-label">Estado</div>
@@ -972,13 +976,8 @@
                 </div>
                 ${p.cost ? `
                 <div class="detail-field">
-                    <div class="detail-field-label">Costo</div>
+                    <div class="detail-field-label">Costo en Chile (CLP)</div>
                     <div class="detail-field-value">${formatCLP(p.cost)}</div>
-                </div>` : ''}
-                ${profit !== null ? `
-                <div class="detail-field">
-                    <div class="detail-field-label">Ganancia</div>
-                    <div class="detail-field-value" style="color: ${profit >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}; font-weight:700">${formatCLP(profit)}</div>
                 </div>` : ''}
                 ${p.buyer ? `
                 <div class="detail-field full-width">
